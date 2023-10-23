@@ -8,6 +8,8 @@ import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
@@ -126,6 +128,22 @@ public class MainActivity extends AppCompatActivity {
                     records.add(new Record(id, nombres[nombre] + " " + apellidos[apellido], fotos[foto]));
                 }
                 // notificar l'adapter dels canvis al model
+                adapter.notifyDataSetChanged();
+            }
+        });
+        Button ordenar = findViewById(R.id.button2);
+        ordenar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Sort the records ArrayList based on the 'intents' field in ascending order
+                Collections.sort(records, new Comparator<Record>() {
+                    @Override
+                    public int compare(Record record1, Record record2) {
+                        return Integer.compare(record1.intents, record2.intents);
+                    }
+                });
+
+                // Notify the adapter of the data change
                 adapter.notifyDataSetChanged();
             }
         });
